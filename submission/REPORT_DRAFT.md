@@ -1,10 +1,10 @@
 # Memory-bounded optimal 2×2×2 cube solving on RV32I
 
-**AI-assisted technical draft, not a compliant final submission.** This document
-was generated from source files, recorded experiments, and student-supplied GUI
-screenshots. It does not claim independent student authorship. The assignment
-requires specified design, assembly, measurements and analysis to be the
-student's own work; this draft does not waive that requirement.
+**AI-assisted technical report — validation in progress.** The student reports
+that the instructor has now permitted AI use. This report retains the actual
+provenance: guided student exercises and student-run observations are identified
+separately from AI-generated code, automation and writing. The updated permission
+is reported by the student, not independently documented here.
 
 GitHub fork: https://github.com/ggyy0822/minirubik
 
@@ -166,10 +166,17 @@ under the recorded no-relax build. Finally, a0/a1 already hold the child ranks,
 so eliminating their two reloads saves two instructions per generated child.
 Stores remain because later search steps need the frame contents.
 
-The final assembly still loses to GCC on both displayed inputs and on code size.
-The measurements establish improvement over v1, not superiority over GCC. A
-precise explanation of the remaining difference needs a matched disassembly or
-dynamic-path comparison; it cannot be attributed to one cause from totals alone.
+The final assembly still loses to GCC on both displayed inputs and on code size
+(20 additional text bytes). Disassembly provides concrete remaining costs:
+GCC loads the two PDB base addresses into t4/t3 once at entry (0x1048–0x1054)
+and reuses them for child lookups (0x1174–0x1180). Assembly v4 reconstructs both
+addresses with two `la` pseudoinstructions for every generated child, four real
+instructions under this no-relax build. GCC also initializes child frames inline,
+where v4 still calls init_frame and moves arguments. These explain avoidable
+costs, but are not a complete dynamic attribution of the measured gap: GCC has
+its own frame-index arithmetic and differing branches. The recorded results
+show improvement over v1, not a claim of beating GCC. The implementation is
+kept frozen while its complete target gate runs.
 
 Evidence: [versioned refinements](../experiments/assembly_practice/README.md).
 
@@ -225,10 +232,16 @@ net and successful one-move execution; static images do not establish timing.
 
 The pinned assembler rejected .if and .space. The integration therefore uses
 host preprocessing and a source adapter with symbolic GUI peripheral parameters.
-The LED renderer-off wrapper differs from the older v4 measurement wrapper.
-Consequently the ongoing v4 full gate must not be claimed as validation of that
-different final runtime. Final GUI/CLI build unification and validation remain
-open. See [renderer details](../experiments/led/README.md).
+The original LED wrapper differed from v4; the unified candidate in
+experiments/final now fixes that mismatch. Its RENDER=0 preprocessed runtime
+matches the original, and four cases have byte-identical .text/.rodata/.data and
+identical section layouts. The CLI measures the ELF directly, without GUI
+bootstrap overhead. Updated rendering passed 17 frames of 875 pixels each.
+Renderer-off .text/static sizes remain 1,784/49,252 bytes; renderer-on payload
+sizes are 2,668/49,452 bytes, excluding the GUI bootstrap/padding from the payload
+text figure. See [unified build](../experiments/final/README.md),
+[equivalence](../experiments/results/final/equivalence.json) and
+[pixel tests](../experiments/results/final/led/summary.json).
 
 ## 7. Pipeline observations
 
@@ -264,12 +277,15 @@ scaffolding, tests, integrations, automated runs and this draft. File-level
 provenance should be retained; understanding generated code does not change its
 authorship.
 
-Before a final submission can be claimed, resolve own-work compliance, select
-and validate one final build, finish the universal target gate, address the
-nonwinning GCC comparison, and supply the GitHub fork and public HackMD note.
+The student reports updated instructor permission for AI assistance. Before a
+final submission can be claimed, finish the universal target gate and retain
+its exact build provenance. The unified candidate is now implemented and tested;
+the nonwinning GCC comparison is disclosed and analyzed above. GitHub is pushed
+and the HackMD working note was observed publicly readable.
 Record genuine substantive revisions rather than fabricating earlier history.
 The final commit/tag, HackMD revision and form receipt are still absent.
 
-Relative evidence links work in the repository; a HackMD version needs actual
-fork/permalink URLs after those destinations are provided. No publication or
-submission has been performed.
+Relative evidence links work in the repository; the HackMD-ready copy uses the
+student fork URLs. Final evidence should be pinned to the submitted commit.
+The initial draft has been published by the student; this updated report is not
+yet synchronized to that note. No final tag or form submission is claimed.

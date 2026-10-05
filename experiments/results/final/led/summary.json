@@ -1,0 +1,38 @@
+[
+  {
+    "input": "12345671111111",
+    "processor": "RV32_ISS",
+    "frames": 1,
+    "pixels_per_frame": 875,
+    "exact_pixel_comparison": "PASS",
+    "optimality": "PASS",
+    "instructions": 32093
+  },
+  {
+    "input": "25314672313211",
+    "processor": "RV32_ISS",
+    "frames": 2,
+    "pixels_per_frame": 875,
+    "exact_pixel_comparison": "PASS",
+    "optimality": "PASS",
+    "instructions": 64215
+  },
+  {
+    "input": "25314672313211",
+    "processor": "RV32_5S",
+    "frames": 2,
+    "pixels_per_frame": 875,
+    "exact_pixel_comparison": "PASS",
+    "optimality": "PASS",
+    "instructions": 64214
+  },
+  {
+    "input": "21345671111111",
+    "processor": "RV32_ISS",
+    "frames": 12,
+    "pixels_per_frame": 875,
+    "exact_pixel_comparison": "PASS",
+    "optimality": "PASS",
+    "instructions": 16500962
+  }
+]
