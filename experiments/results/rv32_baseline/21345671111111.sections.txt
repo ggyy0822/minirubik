@@ -1,0 +1,10 @@
+../../output/rv32_baseline/21345671111111.elf  :
+section              size        addr
+.text                1764        4096
+.rodata             40680   268435456
+.bss                 8192   268476144
+.comment               18           0
+.riscv.attributes      28           0
+Total               50682
+
+

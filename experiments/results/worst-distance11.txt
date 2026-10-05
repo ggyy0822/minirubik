@@ -1,0 +1,3 @@
+transition+PDB payload: 40383 bytes; explicit search stack: 120 bytes
+rank=2437047 initial_h=6 length=11 iterations=6 expanded=106636 generated=639792
+B2 R' B R' D' B R2 B R B D'

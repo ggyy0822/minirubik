@@ -3,3 +3,8 @@
 *.swp
 solver
 mini
+.DS_Store
+.vscode/
+__pycache__/
+*.pyc
+/output/

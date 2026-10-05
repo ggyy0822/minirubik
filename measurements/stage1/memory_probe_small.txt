@@ -1,0 +1,29 @@
+
+Program exited with code: 0
+===== instructions retired
+4101
+===== wall-clock model execution time (ms)
+21
+===== simulation information (processor configuration, input file, ...)
+ISA extensions: 
+processor: RV32_ISS
+source file: memory_probe.s
+
+        0.33 real         0.17 user         0.04 sys
+            76529664  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+                5963  page reclaims
+                1071  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   1  messages sent
+                   0  messages received
+                   0  signals received
+                 114  voluntary context switches
+                 841  involuntary context switches
+          1978355859  instructions retired
+           612934895  cycles elapsed
+            12831360  peak memory footprint

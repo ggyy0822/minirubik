@@ -1,0 +1,7 @@
+H1 heuristic check: 3674160 states passed
+PDBs fully populated; solved entries 0; maxima p=7 o=6
+Oracle distance-11 count: 2644
+Host search/path checks passed: 3674160; wall seconds 342.518
+Maximum generated children: 639792; state: 54721631111111
+H3 host full-domain check passed.
+Target instruction counts and target checks NOT run.

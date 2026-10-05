@@ -1,0 +1,13 @@
+
+Program exited with code: 0
+===== cycles
+262149
+===== instructions retired
+262149
+===== wall-clock model execution time (ms)
+185
+===== simulation information (processor configuration, input file, ...)
+ISA extensions: 
+processor: RV32_ISS
+source file: speed_probe.s
+

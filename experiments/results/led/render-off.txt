@@ -1,0 +1,8 @@
+input: 25314672313211
+length: 1
+path: R'
+replay: PASS
+
+Program exited with code: 0
+===== instructions retired
+1839

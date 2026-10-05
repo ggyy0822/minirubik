@@ -1,0 +1,15 @@
+{
+  "implementation": "assembly",
+  "input": "25314672313211",
+  "processor": "RV32_5S",
+  "instructions": 1845,
+  "cycles": 2478,
+  "model_ms": 48,
+  "text_bytes": 1804,
+  "static_data_bytes": 49252,
+  "length": 1,
+  "path": "R'",
+  "target_replay": "PASS",
+  "host_optimality": "PASS",
+  "qt_backend": "offscreen"
+}

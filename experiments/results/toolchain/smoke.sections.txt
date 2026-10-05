@@ -1,0 +1,10 @@
+../../output/toolchain/smoke.elf  :
+section             size        addr
+.text                 84        4096
+.data                  4   268435456
+.bss                4096   268435472
+.riscv.attributes     28           0
+.comment              18           0
+Total               4230
+
+

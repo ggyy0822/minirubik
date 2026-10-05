@@ -1,0 +1,14 @@
+{
+  "input": "25314672313211",
+  "processor": "RV32_5S",
+  "instructions": 1784,
+  "cycles": 2371,
+  "model_ms": 66,
+  "text_bytes": 1764,
+  "static_data_bytes": 48872,
+  "length": 1,
+  "path": "R'",
+  "target_replay": "PASS",
+  "host_optimality": "PASS",
+  "qt_backend": "offscreen"
+}

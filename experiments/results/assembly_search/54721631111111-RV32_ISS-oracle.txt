@@ -1,0 +1,4 @@
+exact_distance: 11
+path_length: 11
+solved: yes
+optimal: yes

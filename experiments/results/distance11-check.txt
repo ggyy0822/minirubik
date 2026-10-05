@@ -1,0 +1,8 @@
+transition+PDB payload: 40383 bytes; explicit search stack: 120 bytes
+H1 heuristic check: 3674160 states passed
+PDBs fully populated; solved entries 0; maxima p=7 o=6
+Oracle distance-11 count: 2644
+Host search/path checks passed: 2644; wall seconds 3.125
+Maximum generated children: 639792; state: 54721631111111
+Only distance-11 states searched; full-domain H3 NOT run.
+Target instruction counts and target checks NOT run.

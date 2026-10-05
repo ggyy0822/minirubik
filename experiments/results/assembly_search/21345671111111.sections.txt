@@ -1,0 +1,10 @@
+../../output/assembly_search/21345671111111.elf  :
+section              size        addr
+.text                1868        4096
+.rodata             40676   268435456
+.bss                 8576   268476144
+.riscv.attributes      28           0
+.comment               18           0
+Total               51166
+
+

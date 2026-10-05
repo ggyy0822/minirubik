@@ -1,0 +1,19 @@
+ERROR: Simulation did not finish within the specified timeout (180000 ms)
+      180.20 real       175.88 user         1.44 sys
+           207568896  maximum resident set size
+                   0  average shared memory size
+                   0  average unshared data size
+                   0  average unshared stack size
+               15851  page reclaims
+                1126  page faults
+                   0  swaps
+                   0  block input operations
+                   0  block output operations
+                   5  messages sent
+                   0  messages received
+                   0  signals received
+                 177  voluntary context switches
+               51039  involuntary context switches
+        498816296754  instructions retired
+        274063397369  cycles elapsed
+           140987456  peak memory footprint
