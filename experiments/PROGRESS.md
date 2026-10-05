@@ -96,3 +96,13 @@ Load WB and store observations remain pending; estimate stays 62%.
 Full gate restart: fixed summary discovery accidentally matching isa-size-audit.json (a list). Summary now selects exact manifest state filenames. Old directory contains four passing case reports; selection check confirms audit excluded. Runner source fingerprint changed to da7aaa48b90f7555, so fresh run was launched without copying cached reports across fingerprints. Solver source unchanged. Inspect new summary for live coverage.
 
 Unified runtime implemented in experiments/final: renderer-off preprocessed main identical to frozen v4, four ELF executable/data/layout comparisons pass. Updated renderer passes 17 frames/875 pixels; all new ELFs pass RV32I/static audits. Full-gate source untouched and not polled. User reports instructor now permits AI; provenance retained. GCC comparison explanation now grounded in base-hoisting/frame-initialization disassembly.
+
+2026-10-06 current status (supersedes estimates above): approximate preparation
+85%. Current candidate is experiments/rv32_full, AI-assisted full target assembly,
+including inline parser, independent replay and console/LED integration. v5 text
+1564 bytes; reference/stress counts14958590/40894417 beat GCC, with a documented
+three-step exception3803 vs3730. Eight ISS/5S final-case checks pass; 5769 parser
+rank,11 invalid-input,1000 replay and17 framebuffer checks pass. New v5 full gate
+runs independently under fingerprint c0deaa63ee983de7. Historical v4 gate is not
+proof for v5. Pending: v5 all2644 result, online report/permissions, final tag and
+submission receipt. User reports AI permission; preserve provenance.

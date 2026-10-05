@@ -1,0 +1,58 @@
+[
+  {
+    "input": "12345671111111-measure",
+    "text_bytes": 1564,
+    "static_data_bytes": 49217,
+    "rv32i_instruction_audit": "PASS",
+    "undefined_symbols": 0
+  },
+  {
+    "input": "12345671111111-render",
+    "text_bytes": 2216,
+    "static_data_bytes": 49412,
+    "rv32i_instruction_audit": "PASS",
+    "undefined_symbols": 0
+  },
+  {
+    "input": "21345671111111-measure",
+    "text_bytes": 1564,
+    "static_data_bytes": 49217,
+    "rv32i_instruction_audit": "PASS",
+    "undefined_symbols": 0
+  },
+  {
+    "input": "21345671111111-render",
+    "text_bytes": 2216,
+    "static_data_bytes": 49412,
+    "rv32i_instruction_audit": "PASS",
+    "undefined_symbols": 0
+  },
+  {
+    "input": "23745612123332-measure",
+    "text_bytes": 1564,
+    "static_data_bytes": 49217,
+    "rv32i_instruction_audit": "PASS",
+    "undefined_symbols": 0
+  },
+  {
+    "input": "25314672313211-measure",
+    "text_bytes": 1564,
+    "static_data_bytes": 49217,
+    "rv32i_instruction_audit": "PASS",
+    "undefined_symbols": 0
+  },
+  {
+    "input": "25314672313211-render",
+    "text_bytes": 2216,
+    "static_data_bytes": 49412,
+    "rv32i_instruction_audit": "PASS",
+    "undefined_symbols": 0
+  },
+  {
+    "input": "54721631111111-measure",
+    "text_bytes": 1564,
+    "static_data_bytes": 49217,
+    "rv32i_instruction_audit": "PASS",
+    "undefined_symbols": 0
+  }
+]

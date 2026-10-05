@@ -138,9 +138,12 @@ independently developed student C optimization history.
 
 ## 4. Assembly refinement and comparison
 
-The search combines guided student exercise fragments with AI-provided ABI and
-build scaffolding. Parsing, physical replay and portions of the runtime are
-compiled C. This is not an entirely handwritten assembly program.
+Versions v1–v4 combine guided student exercise fragments with AI-provided ABI
+and build scaffolding, plus compiled C parsing/replay/runtime. They are historical
+mixed-language versions. The current v5 candidate directly implements the entire
+target in assembly, including input validation/ranking, physical replay and output.
+The v5 runtime and optimizations are AI-authored; provenance is not relabeled as
+independent student authorship.
 
 Each frame uses offsets 0/4 for parent p/o, 8/12 for child p/o, 16 for the next
 move, 20 for the previous face and 24 for the selected move. The stride is 32
@@ -158,6 +161,7 @@ search, replay, output and exit. Code size is linked .text bytes.
 | v2: inline child pruning | 17,298,120 | 47,292,244 | 1,804 |
 | v3: inline quarter transition | 16,596,237 | 45,372,868 | 1,792 |
 | v4: reuse child registers | 16,128,315 | 44,093,284 | 1,784 |
+| v5: full assembly, hoisted bases, inline frames | 14,958,590 | 40,894,417 | 1,564 |
 
 Reference input: 21345671111111. Stress input: 54721631111111.
 Inlining pruning removes argument movement and helper overhead. Inlining the
@@ -166,7 +170,7 @@ under the recorded no-relax build. Finally, a0/a1 already hold the child ranks,
 so eliminating their two reloads saves two instructions per generated child.
 Stores remain because later search steps need the frame contents.
 
-The final assembly still loses to GCC on both displayed inputs and on code size
+The historical v4 assembly loses to GCC on both displayed inputs and on code size
 (20 additional text bytes). Disassembly provides concrete remaining costs:
 GCC loads the two PDB base addresses into t4/t3 once at entry (0x1048–0x1054)
 and reuses them for child lookups (0x1174–0x1180). Assembly v4 reconstructs both
@@ -174,11 +178,51 @@ addresses with two `la` pseudoinstructions for every generated child, four real
 instructions under this no-relax build. GCC also initializes child frames inline,
 where v4 still calls init_frame and moves arguments. These explain avoidable
 costs, but are not a complete dynamic attribution of the measured gap: GCC has
-its own frame-index arithmetic and differing branches. The recorded results
-show improvement over v1, not a claim of beating GCC. The implementation is
-kept frozen while its complete target gate runs.
+its own frame-index arithmetic and differing branches. These v4 results
+show improvement over v1 but do not beat GCC. That version remains frozen for
+its separate historical gate; v5 has its own target gate.
 
 Evidence: [versioned refinements](https://github.com/ggyy0822/minirubik/blob/main/experiments/assembly_practice/README.md).
+
+### v5 full-assembly candidate
+
+The current build links only assembly executable sources. Host-generated immutable
+numbers become `.byte`/`.half` table declarations; no C parser, C replay, C main,
+allocator or compiler arithmetic helper is linked. The 14-character input is
+inlined with `.asciz` and validated on the target. The algorithm and move ordering
+remain iterative IDA* with the same admissible maximum-of-projections heuristic.
+
+Search now retains the PDB bases in t3/t4, eliminating four instructions per
+child lookup. Its only called helper preserves those caller-saved registers by
+construction. Root and child frames are initialized inline, using live child
+ranks. The parser omits the final trivial Lehmer digit and skips multiplication
+of zero. The RV32I/static audit finds no non-RV32I instructions, undefined symbols
+or arithmetic helpers. Renderer-off static storage is 49,217 bytes, including
+an 8,192-byte reserved stack; text is 1,564 bytes, 200 bytes below GCC.
+
+| Input | GCC -O2 ISS instructions | v5 ISS instructions | v5 instruction win |
+|---|---:|---:|---|
+| 12345671111111 | 1,003 | 947 | Yes |
+| 25314672313211 | 1,785 | 1,781 | Yes |
+| 23745612123332 | 3,730 | 3,803 | No |
+| 21345671111111 | 15,239,117 | 14,958,590 | Yes |
+| 54721631111111 | 41,665,257 | 40,894,417 | Yes |
+
+The three-step exception is retained. An identical assembly diagnostic harness
+calls each implementation through parsing, then search, then replay. C cumulative
+counts are 523/1504/3260; v5 counts are 515/1560/3325. Thus v5 saves 8 in parsing,
+spends 64 more in search and 9 more in replay for this particular input. The
+remaining 8-instruction whole-program difference is in the entry/output wrapper.
+The short search does not amortize its control overhead as effectively as the
+longer reference/stress searches. This phase attribution is measured; it is not
+a claim that every individual overhead instruction has been traced. The diagnostic
+harness counts are separate from final-program measurements. No universal GCC
+instruction win is claimed.
+
+Evidence: [v5 source/build](https://github.com/ggyy0822/minirubik/blob/main/experiments/rv32_full/README.md),
+[whole-program comparison](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_full/comparison.json),
+[phase attribution](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_full/phase-profile/summary.json),
+[ISA/static audit](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_full/audit.json).
 
 ## 5. Correctness and performance evidence
 
@@ -204,15 +248,36 @@ its precise model-accounting cause has not been independently established.
 Replay PASS proves that the emitted moves solve that input. It does not alone
 prove shortest length; that check uses the exact host oracle.
 
-The full 2,644-case distance-11 gate on frozen v4 is running separately. Until
-its summary reports complete coverage with no failures, the universal 50-million
-instruction requirement remains unverified. The highest measured sample must
+The historical v4 gate and the current v5 gate are separate. Only completion of
+the current v5 gate can establish its universal 50-million
+instruction requirement. That gate remains pending. The highest measured sample must
 not be described as the established maximum over the full set.
 
 Pinned Ripes commit: 5b8a616edcb6f0a2ddb07e78951348b72497f1e1.
 Evidence: [cross-model results](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/cross-model-v4/summary.json),
 [host exhaustive result](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_baseline/native-all.txt),
 [full-gate procedure](https://github.com/ggyy0822/minirubik/blob/main/experiments/validation/README.md).
+
+### v5 target validation
+
+The final v5 parser passes every permutation rank (5,040) and every orientation
+rank (729), plus 11 invalid strings. The independent physical replay implementation
+matches 1,000 seeded moves checked with the separate geometric oracle. These
+component tests do not replace the whole-solver distance-11 gate.
+
+| Input | Length | v5 ISS instructions | v5 five-stage instructions | Five-stage cycles |
+|---|---:|---:|---:|---:|
+| 12345671111111 | 0 | 947 | 946 | 1,444 |
+| 25314672313211 | 1 | 1,781 | 1,780 | 2,510 |
+| 23745612123332 | 3 | 3,803 | 3,802 | 5,102 |
+| 21345671111111 | 11 | 14,958,590 | 14,958,589 | 18,627,247 |
+
+All eight runs pass target replay and host exact optimality. The stress case
+also passes on ISS with 40,894,417 instructions. The source-fingerprinted full
+2,644-case v5 run is in progress; the v4 coverage cannot substitute for it.
+
+Evidence: [component tests](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_full/state-check/summary.json),
+[cross-model measurements](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_full/measurements/summary.json).
 
 ## 6. LED mapping and actual-path replay
 
@@ -232,7 +297,7 @@ net and successful one-move execution; static images do not establish timing.
 
 The pinned assembler rejected .if and .space. The integration therefore uses
 host preprocessing and a source adapter with symbolic GUI peripheral parameters.
-The original LED wrapper differed from v4; the unified candidate in
+The original LED wrapper differed from v4; the historical unified candidate in
 experiments/final now fixes that mismatch. Its RENDER=0 preprocessed runtime
 matches the original, and four cases have byte-identical .text/.rodata/.data and
 identical section layouts. The CLI measures the ELF directly, without GUI
@@ -243,7 +308,15 @@ text figure. See [unified build](https://github.com/ggyy0822/minirubik/blob/main
 [equivalence](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/final/equivalence.json) and
 [pixel tests](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/final/led/summary.json).
 
-## 7. Pipeline observations
+The current v5 build uses the same renderer with assembly-only integration. Its
+RENDER=1 path reparses the original state and applies the actual solution one move
+at a time. The v5 renderer passes 17 complete frames of 875 pixels against the
+independent geometry oracle, including ISS and five-stage execution. New GUI
+source is generated by `experiments/rv32_full/build.py`; the earlier GUI screenshot
+is historical evidence, not a screenshot of v5. See
+[v5 pixel evidence](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_full/led/summary.json).
+
+## 7. Pipeline observations (historical v4)
 
 The student operated the actual three-move solver ELF on the ordinary RV32I
 five-stage processor. Its result was D' B' R', replay PASS, exit 0, with 4,996

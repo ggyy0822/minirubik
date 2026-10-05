@@ -5,7 +5,7 @@
 This fork retains the upstream BFS below as the baseline/oracle. The RV32I
 IDA* coursework candidate is documented separately:
 
-- [Unified GUI/CLI build and instructions](experiments/final/README.md)
+- [Unified GUI/CLI build and instructions](experiments/rv32_full/README.md)
 - [English technical report](submission/REPORT_DRAFT.md)
 - [Public HackMD working note](https://hackmd.io/@tang930822/HksBNm-jGe)
 - [Guided assembly source and measured revisions](experiments/assembly_practice/README.md)
@@ -13,14 +13,14 @@ IDA* coursework candidate is documented separately:
 - [Submission readiness](submission/READINESS.md)
 
 ```sh
-python3 experiments/final/build.py 23745612123332 --render 0
-python3 experiments/final/build.py 25314672313211 --render 1
+python3 experiments/rv32_full/build.py 23745612123332 --render 0
+python3 experiments/rv32_full/build.py 25314672313211 --render 1
 ```
 
 Load the renderer-off ELF for instruction measurements. Load the generated
 renderer-on GUI assembly with LED Matrix 0 configured to 35×25 for visualization.
-The search is assembly, with compiled C parsing/replay/runtime; provenance is
-explicit. The student reports instructor permission for AI assistance.
+The current v5 target is fully assembly, including parsing, replay and output;
+AI-assisted provenance is explicit. The student reports instructor permission for AI assistance.
 Full distance-11 performance verification is in progress; no final tag or
 submission is claimed. The original `make` targets still build the upstream BFS.
 

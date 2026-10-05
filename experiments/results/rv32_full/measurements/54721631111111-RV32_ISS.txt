@@ -1,0 +1,17 @@
+input: 54721631111111
+length: 11
+path: B2 R' B R' D' B R2 B R B D'
+replay: PASS
+
+Program exited with code: 0
+===== cycles
+40894417
+===== instructions retired
+40894417
+===== wall-clock model execution time (ms)
+32238
+===== simulation information (processor configuration, input file, ...)
+ISA extensions: 
+processor: RV32_ISS
+source file: /Users/ggyy_0822/Desktop/minirubik/output/rv32_full/54721631111111-measure.elf
+

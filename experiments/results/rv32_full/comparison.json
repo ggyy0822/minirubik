@@ -1,0 +1,42 @@
+[
+  {
+    "input": "12345671111111",
+    "gcc_instructions": 1003,
+    "assembly_instructions": 947,
+    "assembly_win": true,
+    "gcc_text": 1764,
+    "assembly_text": 1564
+  },
+  {
+    "input": "25314672313211",
+    "gcc_instructions": 1785,
+    "assembly_instructions": 1781,
+    "assembly_win": true,
+    "gcc_text": 1764,
+    "assembly_text": 1564
+  },
+  {
+    "input": "23745612123332",
+    "gcc_instructions": 3730,
+    "assembly_instructions": 3803,
+    "assembly_win": false,
+    "gcc_text": 1764,
+    "assembly_text": 1564
+  },
+  {
+    "input": "21345671111111",
+    "gcc_instructions": 15239117,
+    "assembly_instructions": 14958590,
+    "assembly_win": true,
+    "gcc_text": 1764,
+    "assembly_text": 1564
+  },
+  {
+    "input": "54721631111111",
+    "gcc_instructions": 41665257,
+    "assembly_instructions": 40894417,
+    "assembly_win": true,
+    "gcc_text": 1764,
+    "assembly_text": 1564
+  }
+]
