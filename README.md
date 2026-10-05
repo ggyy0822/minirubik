@@ -1,5 +1,29 @@
 # minirubik
 
+## Computer architecture coursework
+
+This fork retains the upstream BFS below as the baseline/oracle. The RV32I
+IDA* coursework candidate is documented separately:
+
+- [Unified GUI/CLI build and instructions](experiments/final/README.md)
+- [English technical report](submission/REPORT_DRAFT.md)
+- [Public HackMD working note](https://hackmd.io/@tang930822/HksBNm-jGe)
+- [Guided assembly source and measured revisions](experiments/assembly_practice/README.md)
+- [Pipeline screenshot evidence](experiments/results/pipeline/gui/README.md)
+- [Submission readiness](submission/READINESS.md)
+
+```sh
+python3 experiments/final/build.py 23745612123332 --render 0
+python3 experiments/final/build.py 25314672313211 --render 1
+```
+
+Load the renderer-off ELF for instruction measurements. Load the generated
+renderer-on GUI assembly with LED Matrix 0 configured to 35×25 for visualization.
+The search is assembly, with compiled C parsing/replay/runtime; provenance is
+explicit. The student reports instructor permission for AI assistance.
+Full distance-11 performance verification is in progress; no final tag or
+submission is claimed. The original `make` targets still build the upstream BFS.
+
 An optimal C99 solver for the 2×2×2 Rubik’s Cube. It builds a breadth-first
 table for all 3,674,160 states and solves every valid position in at most 11
 half-turn-metric moves.
