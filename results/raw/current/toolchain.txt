@@ -1,0 +1,14 @@
+Current representative GCC/assembly comparison
+Date: 2026-10-07
+Compiler: riscv64-unknown-elf-gcc (g6afcc4f6d) 16.1.0
+Target triple: riscv64-unknown-elf
+Verified multilib: rv32i/ilp32
+Compiler options include: -O2 -march=rv32i -mabi=ilp32
+Additional freestanding/link options: see tools/build.py FLAGS
+Comparison command: CROSS=riscv64-unknown-elf- python3 tests/compare.py
+Inputs: 12345671111111, 25314672313211, 23745612123332,
+        21345671111111, 54721631111111
+
+All five GCC and handwritten-assembly Ripes ISS runs passed target replay and
+host optimality checks. The archived exhaustive 2644-state gate was measured
+with riscv64-elf-gcc 16.2.0; it was not rerun with this compiler.

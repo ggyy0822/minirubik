@@ -1,7 +1,11 @@
 # Optimization history
 
 The following measured development stages are retained from the full report.
-The directory reorganization changes no algorithm or target instruction.
+The directory reorganization changes no algorithm or target instruction. The
+v1–v4 iteration table below is historical GCC 16.2.0 evidence. The final v5
+comparison table uses a fresh GCC 16.1.0 `riscv64-unknown-elf-gcc` run, matching
+the assignment's specified compiler prefix. The exhaustive archived gate remains
+historical and was not rerun with the newer compiler.
 
 ## 4. Assembly refinement and comparison
 
@@ -23,7 +27,7 @@ search, replay, output and exit. Code size is linked .text bytes.
 
 | Version | Reference input instructions | Stress input instructions | .text bytes |
 |---|---:|---:|---:|
-| GCC -O2 | 15,239,117 | 41,665,257 | 1,764 |
+| GCC -O2, historical GCC 16.2 | 15,239,117 | 41,665,257 | 1,764 |
 | Assembly v1: helper calls | 22,211,301 | 60,727,876 | 1,868 |
 | v2: inline child pruning | 17,298,120 | 47,292,244 | 1,804 |
 | v3: inline quarter transition | 16,596,237 | 45,372,868 | 1,792 |
@@ -69,11 +73,11 @@ an 8,192-byte reserved stack; text is 1,564 bytes, 200 bytes below GCC.
 
 | Input | GCC -O2 ISS instructions | v5 ISS instructions | v5 instruction win |
 |---|---:|---:|---|
-| 12345671111111 | 1,003 | 947 | Yes |
-| 25314672313211 | 1,785 | 1,781 | Yes |
-| 23745612123332 | 3,730 | 3,803 | No |
-| 21345671111111 | 15,239,117 | 14,958,590 | Yes |
-| 54721631111111 | 41,665,257 | 40,894,417 | Yes |
+| 12345671111111 | 1,001 | 947 | Yes |
+| 25314672313211 | 1,786 | 1,781 | Yes |
+| 23745612123332 | 3,733 | 3,803 | No |
+| 21345671111111 | 15,239,128 | 14,958,590 | Yes |
+| 54721631111111 | 41,665,268 | 40,894,417 | Yes |
 
 The three-step exception is retained. An identical assembly diagnostic harness
 calls each implementation through parsing, then search, then replay. C cumulative
@@ -90,4 +94,3 @@ Evidence: [v5 source/build](https://github.com/ggyy0822/minirubik/blob/phase1-st
 [whole-program comparison](https://github.com/ggyy0822/minirubik/blob/phase1-structured-v1/experiments/results/rv32_full/comparison.json),
 [phase attribution](https://github.com/ggyy0822/minirubik/blob/phase1-structured-v1/experiments/results/rv32_full/phase-profile/summary.json),
 [ISA/static audit](https://github.com/ggyy0822/minirubik/blob/phase1-structured-v1/experiments/results/rv32_full/audit.json).
-

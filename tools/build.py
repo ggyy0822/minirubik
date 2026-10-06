@@ -2,7 +2,7 @@
 import argparse, os, pathlib, re, shutil, subprocess
 ROOT=pathlib.Path(__file__).resolve().parents[1]
 OUT=ROOT/'output/coursework'
-CROSS=os.environ.get('CROSS','riscv64-elf-')
+CROSS=os.environ.get('CROSS','riscv64-unknown-elf-')
 FLAGS=['-O2','-std=c99','-march=rv32i','-mabi=ilp32','-msmall-data-limit=0','-mno-relax','-ffreestanding','-fno-builtin','-fno-stack-protector','-Wall','-Wextra','-nostdlib','-nostartfiles','-Wl,--no-relax','-Wl,-T,'+str(ROOT/'tools/ripes.ld')]
 def execute(args,**kw):return subprocess.run(list(map(str,args)),check=True,**kw)
 def tables():

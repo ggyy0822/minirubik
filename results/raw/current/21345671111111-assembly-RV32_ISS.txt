@@ -9,7 +9,7 @@ Program exited with code: 0
 ===== instructions retired
 14958590
 ===== wall-clock model execution time (ms)
-8803
+8761
 ===== simulation information (processor configuration, input file, ...)
 ISA extensions: 
 processor: RV32_ISS

@@ -5,9 +5,9 @@ replay: PASS
 
 Program exited with code: 0
 ===== cycles
-1785
+1786
 ===== instructions retired
-1785
+1786
 ===== wall-clock model execution time (ms)
 1
 ===== simulation information (processor configuration, input file, ...)

@@ -5,11 +5,11 @@ replay: PASS
 
 Program exited with code: 0
 ===== cycles
-15239117
+15239128
 ===== instructions retired
-15239117
+15239128
 ===== wall-clock model execution time (ms)
-8173
+8346
 ===== simulation information (processor configuration, input file, ...)
 ISA extensions: 
 processor: RV32_ISS

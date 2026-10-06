@@ -6,7 +6,6 @@ written RV32I assembly, including input parsing, search, independent replay and
 output. AI assistance and guided student contributions are disclosed in the report.
 
 - [HackMD report](https://hackmd.io/@tang930822/HksBNm-jGe)
-- [Report backup](docs/report.md)
 - [Optimization history](docs/optimization.md)
 - [Correctness summary](results/correctness.md)
 - [GCC comparison CSV](results/comparison.csv)
@@ -37,7 +36,6 @@ minirubik/
 │   ├── layout-equivalence.json
 │   └── raw/                 # Original evidence archive and new measurements
 ├── docs/
-│   ├── report.md
 │   └── optimization.md
 └── tools/                   # Build, host table generator, linker script
 ```
@@ -45,15 +43,15 @@ minirubik/
 Historical experiments and evidence are preserved in
 `results/raw/development-history.tar.gz` and immutable earlier Git tags.
 The original `solver.c` and `mini.c` remain the upstream BFS baseline/oracle.
-`docs/report.md` is the single report source and can be pasted directly into
-HackMD; duplicate submission drafts have been removed.
+The linked HackMD note is the authoritative report; the repository keeps only
+the optimization history and reproducibility artifacts.
 
 ## Build
 
-Requires Python 3, a native C compiler, `riscv64-elf-gcc`/binutils and Ripes with
-RV32_ISS. Validated compiler: GCC 16.2.0; Ripes commit
-`5b8a616edcb6f0a2ddb07e78951348b72497f1e1`. The compiler prefix differs from the
-assignment's example `riscv64-unknown-elf-`; flags and version are disclosed.
+Requires Python 3, a native C compiler, `riscv64-unknown-elf-gcc`/binutils and
+Ripes with RV32_ISS. Validated compiler: GCC 16.1.0, target
+`riscv64-unknown-elf`; Ripes commit `5b8a616edcb6f0a2ddb07e78951348b72497f1e1`.
+This is the compiler prefix used in the assignment's reference command.
 
 ```sh
 make                         # Build C + assembly ELF, export asm/minirubik.s
@@ -95,9 +93,15 @@ from a different toolchain/model require fresh validation.
 
 ## Validated results
 
-All **2644/2644 distance-11 states** pass, maximum **40,894,417** instructions.
-Reference input: **14,958,590**. Assembly text: **1564 bytes**, GCC: **1764**.
-The three-step case is a documented exception: **3803 vs GCC 3730** instructions.
+The archived full gate records **2644/2644 distance-11 states** passing, with a
+maximum of **40,894,417** assembly instructions. The current five-input comparison
+was freshly rerun with GCC 16.1.0 `riscv64-unknown-elf-gcc -O2 -march=rv32i
+-mabi=ilp32`: on the reference input, assembly retires **14,958,590** instructions
+versus GCC's **15,239,128**; `.text` is **1,564** versus **1,760** bytes. The
+three-step case remains an exception: **3,803 vs GCC's 3,733** instructions.
+The archived exhaustive gate was originally measured with GCC 16.2.0
+`riscv64-elf-gcc`; it is preserved as historical evidence and was not rerun under
+the newly installed compiler.
 Do not claim an instruction win for every input.
 
 The structured source copies and eight representative ELF layouts/sections are

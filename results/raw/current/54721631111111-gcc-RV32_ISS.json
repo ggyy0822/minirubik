@@ -4,9 +4,9 @@
   "processor": "RV32_ISS",
   "length": 11,
   "path": "B2 R' B R' D' B R2 B R B D'",
-  "instructions": 41665257,
-  "cycles": 41665257,
-  "text_bytes": 1764,
+  "instructions": 41665268,
+  "cycles": 41665268,
+  "text_bytes": 1760,
   "static_data_bytes": 48872,
   "target_replay": "PASS",
   "host_optimality": "PASS"
