@@ -1,250 +1,104 @@
-# minirubik
+# minirubik — RV32I coursework
 
-## Computer architecture coursework
+An optimal 2×2×2 cube solver using iterative IDA*, factored transition tables and
+`max(permutation distance, orientation distance)`. The final target is directly
+written RV32I assembly, including input parsing, search, independent replay and
+output. AI assistance and guided student contributions are disclosed in the report.
 
-This fork retains the upstream BFS below as the baseline/oracle. The RV32I
-IDA* coursework candidate is documented separately:
+- [HackMD report](https://hackmd.io/@tang930822/HksBNm-jGe)
+- [Report backup](docs/report.md)
+- [Optimization history](docs/optimization.md)
+- [Correctness summary](results/correctness.md)
+- [GCC comparison CSV](results/comparison.csv)
 
-- [Unified GUI/CLI build and instructions](experiments/rv32_full/README.md)
-- [English technical report](submission/REPORT_DRAFT.md)
-- [Public HackMD working note](https://hackmd.io/@tang930822/HksBNm-jGe)
-- [Guided assembly source and measured revisions](experiments/assembly_practice/README.md)
-- [Pipeline screenshot evidence](experiments/results/pipeline/gui/README.md)
-- [Submission readiness](submission/READINESS.md)
+## Layout
+
+```text
+minirubik/
+├── README.md
+├── Makefile
+├── baseline/                 # Final C algorithm compiled with GCC -O2
+│   ├── main.c
+│   ├── search.c
+│   └── state.c               # Also target.h and start.S
+├── asm/
+│   ├── minirubik.s           # Standalone Ripes program; LED rendering ON
+│   └── src/                  # Readable, maintained handwritten assembly
+├── tests/
+│   ├── cases/                # Representative inputs and all 2644 hard states
+│   ├── verify_host.py        # H1–H3; H4 explicitly not applicable
+│   ├── verify_ripes.py       # T5–T7 and optional full hard-state rerun
+│   ├── compare.py           # Actual GCC/assembly Ripes measurements
+│   ├── verify_layout.py     # Relocation equivalence and archived gate audit
+│   └── verify_single.py     # Standalone .s pixel check in a RAM framebuffer
+├── results/
+│   ├── correctness.md
+│   ├── comparison.csv
+│   ├── layout-equivalence.json
+│   └── raw/                 # Original evidence archive and new measurements
+├── docs/
+│   ├── report.md
+│   └── optimization.md
+└── tools/                   # Build, host table generator, linker script
+```
+
+`experiments/` and `submission/` retain historical versions/evidence and the
+HackMD-ready export. They are not the primary entry points. The original
+`solver.c` and `mini.c` remain the upstream BFS baseline and independent oracle.
+
+## Build
+
+Requires Python 3, a native C compiler, `riscv64-elf-gcc`/binutils and Ripes with
+RV32_ISS. Validated compiler: GCC 16.2.0; Ripes commit
+`5b8a616edcb6f0a2ddb07e78951348b72497f1e1`. The compiler prefix differs from the
+assignment's example `riscv64-unknown-elf-`; flags and version are disclosed.
 
 ```sh
-python3 experiments/rv32_full/build.py 23745612123332 --render 0
-python3 experiments/rv32_full/build.py 25314672313211 --render 1
+make                         # Build C + assembly ELF, export asm/minirubik.s
+make asm INPUT=25314672313211 # Change the inline cube and regenerate single file
+make baseline INPUT=21345671111111
 ```
 
-Load the renderer-off ELF for instruction measurements. Load the generated
-renderer-on GUI assembly with LED Matrix 0 configured to 35×25 for visualization.
-The current v5 target is fully assembly, including parsing, replay and output;
-AI-assisted provenance is explicit. The student reports instructor permission for AI assistance.
-All 2644 distance-11 target cases pass; the validated snapshot is `phase1-v5`.
-Formal submission and its accepted receipt remain separate. The original `make` targets still build the upstream BFS.
+The committed single file uses the three-step input `23745612123332`. It needs no
+includes or compiler to load in Ripes: create **LED Matrix 0**, set **Width 35,
+Height 25**, select **RV32_ISS**, load `asm/minirubik.s`, and run. The generated
+file adapts the linked handwritten assembly to Ripes syntax; it is not C output.
+Edit maintained code in `asm/src/` and regenerate; do not edit numeric labels in
+the exported file. Host C only generates constant tables for the assembly build.
 
-An optimal C99 solver for the 2×2×2 Rubik’s Cube. It builds a breadth-first
-table for all 3,674,160 states and solves every valid position in at most 11
-half-turn-metric moves.
+The single file has rendering enabled. **Measure renderer-off ELF files** under
+`output/coursework/` through the commands below; do not count the GUI bootstrap
+or rendering as solver-only measurements.
 
-## Why a cube is a graph
-
-Ernő Rubik created the original cube in 1974 to demonstrate how parts can move
-independently without breaking the whole. A 3×3 cube has 20 moving pieces and
-about 4.3 × 10¹⁹ reachable arrangements. The smaller 2×2 cube keeps the eight
-corners and removes the edges and fixed centers. [Philo Li’s formula-free
-introduction](https://philoli.com/zh/blog/solve-rubiks-cube-without-formulas/)
-offers the key intuition: every turn is reversible, turns can be composed, and
-their order matters—`R U` is generally not `U R`.
-
-Human solvers use those facts to move a few pieces while restoring the rest;
-the commutator `A B A⁻¹ B⁻¹` is the standard example. This program uses the
-same group structure differently: it treats every valid arrangement as a node,
-every face turn as an edge, and searches the entire graph once. It does not use
-the article’s 3×3 Roux stages or a library of memorized algorithms.
-
-The solver gives the eight corner positions the numbers `0–7`. The 2.5D
-walkthrough below shows where those numbers are on the physical cube.
-
-## How it works
-
-1. Fix one corner to remove whole-cube rotations.
-2. Rank the remaining corner permutation and six independent orientations into
-   a dense integer.
-3. Breadth-first search outward from solved using `R`, `B`, and `D`, including
-   inverse and half turns.
-4. Store one move toward solved for every state; following those moves gives an
-   optimal solution of at most 11 moves.
-
-## Build and run
+## Test and compare
 
 ```sh
-make
-make check
-make prove   # optional: Frama-C WP proof, needs frama-c and alt-ergo
-./solver 21345671111111
+make test          # Equivalence + H1/H2 + sampled H3 + short ISS/5S + single file
+make compare       # Fresh five-input GCC vs assembly instruction/text comparison
+make measure INPUT=21345671111111
+make verify-host   # Full H1/H2/H3; H4 N/A (several minutes)
+make verify-ripes  # Full representative T5–T7, including 11 moves on five-stage
+make verify-full   # Full host checks + T5–T7 + all 2644 hard inputs (hours)
+make check-upstream # Original BFS/mini checks
 ```
 
-`make` builds two binaries. `solver` is the documented one, with contracts, a
-`--self-test` mode, and diagnostics on stderr. `mini` is a golfed variant that
-solves the same input and prints the same line, kept as a readability contrast;
-it has no `--self-test` and prints nothing on failure, and it trades roughly
-eight times the runtime and three times the memory for its brevity.
+`make test` explicitly does **not** rerun exhaustive H3 or the full hard-state
+simulation. It checks preserved complete evidence and executable equivalence;
+long rerun commands are separate. Original outputs are retained under
+`results/raw/`; fresh logs go under `results/raw/current/`.
 
-The 14-digit argument describes the scramble and the printed line is the
-solution. Both formats are explained below.
+For a different installation, export `RIPES=/path/to/Ripes`,
+`CROSS=riscv64-unknown-elf-` and/or `CC=clang` before running make. Measurements
+from a different toolchain/model require fresh validation.
 
-### Reading the 14-digit input
+## Validated results
 
-The program receives one 14-digit code with no spaces. For explanation, split
-it into two groups:
+All **2644/2644 distance-11 states** pass, maximum **40,894,417** instructions.
+Reference input: **14,958,590**. Assembly text: **1564 bytes**, GCC: **1764**.
+The three-step case is a documented exception: **3803 vs GCC 3730** instructions.
+Do not claim an instruction win for every input.
 
-```diagram
-2134567 1111111
-└── P ─┘ └── O ─┘
-  cubies   twists
-```
-
-Imagine seven numbered seats and seven students. A position is a seat fixed in
-space; a cubie is the physical corner that can move to another seat. In the
-solved cube, cubie 1 sits in position 1, cubie 2 in position 2, and so on.
-The real cube has no printed numbers; `0–7` are labels used only by this solver.
-
-#### Step 1: Hold the cube in one direction
-
-Keep `FRONT` facing you and `UP` pointing upward. Position `0` is the corner
-nearest the upper-left of the front face. It is an anchor for describing the
-other corners; the physical cubie is not glued in place.
-
-```diagram
-                              BACK
-                    ·───────────────·
-                   ╱               ╱│
-                  ╱        UP     ╱ │
-                 ╱               ╱  │
-              [0]───────────────·   │
-               │                │   │
-               │     FRONT      │ R │
-               │                │   ·
-               │                │  ╱
-               │                │ ╱
-               │                │╱
-               ·────────────────·
-```
-
-`R` marks the narrow `RIGHT` face.
-
-#### Step 2: Separate the front and back layers
-
-A 2×2×2 cube has only corner cubies. Looking from the fixed direction, four
-corner positions touch the front face and four touch the back face. Each
-bracketed number below names one whole corner, not one colored sticker:
-
-```diagram
- FRONT LAYER                          BACK LAYER
-
- upper-left   upper-right             upper-left   upper-right
-     [0]────────[1]                       [7]────────[4]
-      │          │                         │          │
-      │          │       front ↔ back      │          │
-     [3]────────[2]                       [6]────────[5]
- down-left    down-right               down-left    down-right
-```
-
-The front layer runs clockwise from its upper-left corner as `0, 1, 2, 3`.
-The back layer is drawn as if seen through the cube from the front: `7` is
-upper-left, followed clockwise by `4, 5, 6`.
-
-#### Step 3: Join the two layers into positions 0–7
-
-Slide the back square up and to the right, the same direction the cube recedes
-in Step 1, to get the complete 2.5D position map. The back edges are drawn
-through the front face rather than hidden behind it:
-
-```diagram
-                           BACK
-                      [7]────────[4]
-                     ╱ │        ╱ │
-                  [0]──│─────[1]  │
-                   │   │      │   │
-                   │  [6]─────│──[5]
-                   │ ╱        │ ╱
-                  [3]────────[2]
-                      FRONT
-```
-
-The seven characters of `P` describe positions `1, 2, 3, 4, 5, 6, 7` in that
-order; the anchor at position `0` is left out.
-
-#### Step 4: Put the cubies into those positions
-
-Compare the position map on the left with the filled cube on the right. Read
-`P = 2134567` from left to right to fill the positions. The arrows below the
-figure identify the two positions that change.
-
-```diagram
- POSITION MAP                             AFTER P = 2134567
- (fixed seats)                            (cubies now in seats)
-
-     [7]────────[4]                           [7]────────[4]
-    ╱ │        ╱ │                           ╱ │        ╱ │
- [0]──│─────[1]  │                        [0]──│─────[2]  │
-  │   │      │   │                         │   │      │   │
-  │  [6]─────│──[5]                        │  [6]─────│──[5]
-  │ ╱        │ ╱                           │ ╱        │ ╱
- [3]────────[2]                           [3]────────[1]
-     FRONT                                    FRONT
-
- position:     1 2 3 4 5 6 7
- P says:       2 1 3 4 5 6 7
-               │ │ └───────── cubies 3–7 stay in their matching seats
-               │ └─────────── put cubie 1 in position 2: [2] becomes [1]
-               └───────────── put cubie 2 in position 1: [1] becomes [2]
-```
-
-So the first two digits, `21`, exchange the two corners on the front-right
-edge. The remaining digits, `34567`, leave the other five movable corners
-where they were. `P` must contain every digit from `1` through `7` exactly
-once; otherwise a cubie would be missing or duplicated.
-
-The seven seats named by `P` are:
-
-| Position | Corner of the cube |
-| :---: | :--- |
-| 1 | front, upper, right |
-| 2 | front, down, right |
-| 3 | front, down, left |
-| 4 | back, upper, right |
-| 5 | back, down, right |
-| 6 | back, down, left |
-| 7 | back, upper, left |
-
-The second group, `O = 1111111`, describes the twist of the cubie in each of
-those same seven positions:
-
-| Digit | Meaning |
-| :---: | :--- |
-| 1 | not twisted |
-| 2 | twisted by +120° |
-| 3 | twisted by −120° |
-
-Here every orientation digit is `1`, so the two corners change places without
-being twisted. For a valid cube, convert orientation digits to `0`, `1`, and
-`2`; their sum must be divisible by three. The solved code is
-`12345671111111`. `make check` uses the exchanged-corner example above.
-
-## Reading the solution
-
-```sh
-$ ./solver 21345671111111
-B' R' D2 R' B R B' R D2 B R'
-```
-
-Each token is one face turn. Apply them left to right; after the last one the
-cube is solved.
-
-| Token | Meaning |
-| :---: | :--- |
-| `R` | turn the `RIGHT` face 90° clockwise |
-| `B` | turn the `BACK` face 90° clockwise |
-| `D` | turn the `DOWN` face 90° clockwise |
-
-Clockwise means clockwise as seen by someone looking directly at that face from
-outside the cube, so you have to walk around to the back to read `B` and look up
-from underneath to read `D`. Two suffixes modify a turn:
-
-| Suffix | Meaning |
-| :---: | :--- |
-| none | 90° clockwise |
-| `'` | 90° counterclockwise, the inverse |
-| `2` | 180°, direction does not matter |
-
-`R`, `B`, and `D` are the only faces that appear, because turning `UP`, `FRONT`,
-or `LEFT` would move the anchor at position `0`. A turn counts as one move
-whichever suffix it carries, which is the half-turn metric; under that metric no
-position needs more than 11 moves. Solving an already-solved cube prints an
-empty line.
-
-See [`report.md`](report.md) for the model, algorithm, diagrams, and Frama-C
-validation notes.
+The structured source copies and eight representative ELF layouts/sections are
+identical to validated v5. Historical `phase1-v5` is retained; the organized
+snapshot is `phase1-structured-v1`. Formal course submission and its `accepted`
+email are separate from building, testing or tagging the repository.

@@ -1,0 +1,80 @@
+[
+  {
+    "input": "12345671111111",
+    "implementation": "assembly",
+    "processor": "RV32_ISS",
+    "length": 0,
+    "path": "",
+    "instructions": 947,
+    "cycles": 947,
+    "text_bytes": 1564,
+    "static_data_bytes": 49217,
+    "target_replay": "PASS",
+    "host_optimality": "PASS"
+  },
+  {
+    "input": "25314672313211",
+    "implementation": "assembly",
+    "processor": "RV32_ISS",
+    "length": 1,
+    "path": "R'",
+    "instructions": 1781,
+    "cycles": 1781,
+    "text_bytes": 1564,
+    "static_data_bytes": 49217,
+    "target_replay": "PASS",
+    "host_optimality": "PASS"
+  },
+  {
+    "input": "23745612123332",
+    "implementation": "assembly",
+    "processor": "RV32_ISS",
+    "length": 3,
+    "path": "D' B' R'",
+    "instructions": 3803,
+    "cycles": 3803,
+    "text_bytes": 1564,
+    "static_data_bytes": 49217,
+    "target_replay": "PASS",
+    "host_optimality": "PASS"
+  },
+  {
+    "input": "12345671111111",
+    "implementation": "assembly",
+    "processor": "RV32_5S",
+    "length": 0,
+    "path": "",
+    "instructions": 946,
+    "cycles": 1444,
+    "text_bytes": 1564,
+    "static_data_bytes": 49217,
+    "target_replay": "PASS",
+    "host_optimality": "PASS"
+  },
+  {
+    "input": "25314672313211",
+    "implementation": "assembly",
+    "processor": "RV32_5S",
+    "length": 1,
+    "path": "R'",
+    "instructions": 1780,
+    "cycles": 2510,
+    "text_bytes": 1564,
+    "static_data_bytes": 49217,
+    "target_replay": "PASS",
+    "host_optimality": "PASS"
+  },
+  {
+    "input": "23745612123332",
+    "implementation": "assembly",
+    "processor": "RV32_5S",
+    "length": 3,
+    "path": "D' B' R'",
+    "instructions": 3802,
+    "cycles": 5102,
+    "text_bytes": 1564,
+    "static_data_bytes": 49217,
+    "target_replay": "PASS",
+    "host_optimality": "PASS"
+  }
+]

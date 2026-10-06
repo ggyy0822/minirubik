@@ -1,0 +1,13 @@
+{
+  "input": "21345671111111",
+  "implementation": "gcc",
+  "processor": "RV32_ISS",
+  "length": 11,
+  "path": "R B' D2 R' B R' B' R D2 R B",
+  "instructions": 15239117,
+  "cycles": 15239117,
+  "text_bytes": 1764,
+  "static_data_bytes": 48872,
+  "target_replay": "PASS",
+  "host_optimality": "PASS"
+}

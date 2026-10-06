@@ -1,0 +1,17 @@
+input: 12345671111111
+length: 0
+path: 
+replay: PASS
+
+Program exited with code: 0
+===== cycles
+1003
+===== instructions retired
+1003
+===== wall-clock model execution time (ms)
+1
+===== simulation information (processor configuration, input file, ...)
+ISA extensions: 
+processor: RV32_ISS
+source file: /Users/ggyy_0822/Desktop/minirubik/output/coursework/12345671111111-gcc.elf
+

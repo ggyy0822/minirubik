@@ -1,0 +1,7 @@
+{
+  "input": "23745612123332",
+  "frames": 4,
+  "pixels_per_frame": 875,
+  "result": "PASS",
+  "scope": "single-file payload with peripheral symbols substituted for headless execution"
+}

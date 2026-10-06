@@ -1,3 +1,40 @@
+.DEFAULT_GOAL := all
+PYTHON ?= python3
+INPUT ?= 23745612123332
+
+.PHONY: all asm baseline measure test check verify-host verify-ripes verify-full compare layout-check upstream check-upstream
+all: baseline asm
+
+baseline:
+	$(PYTHON) tools/build.py --implementation gcc --input $(INPUT)
+
+asm:
+	$(PYTHON) tools/build.py --implementation assembly --input $(INPUT) --export
+
+measure:
+	$(PYTHON) tests/compare.py --input $(INPUT)
+
+compare:
+	$(PYTHON) tests/compare.py
+
+check test: layout-check
+	$(PYTHON) tests/verify_host.py --quick
+	$(PYTHON) tests/verify_ripes.py --quick
+	$(PYTHON) tests/verify_single.py
+
+layout-check:
+	$(PYTHON) tests/verify_layout.py
+
+verify-host:
+	$(PYTHON) tests/verify_host.py
+
+verify-ripes:
+	$(PYTHON) tests/verify_ripes.py
+
+verify-full: verify-host
+	$(PYTHON) tests/verify_ripes.py --all-hard
+
+# Historical upstream targets retained below.
 CC ?= cc
 CFLAGS ?= -O3 -std=c99 -Wall -Wextra -Wpedantic
 FRAMA_C ?= frama-c
@@ -14,7 +51,7 @@ INVALID_STATES := 1234567111111 123456711111111 02345671111111 82345671111111 \
 
 .PHONY: all check prove clean indent
 
-all: solver mini
+upstream: solver mini
 
 solver: solver.c
 	$(CC) $(CFLAGS) $< -o $@
@@ -22,7 +59,7 @@ solver: solver.c
 mini: mini.c
 	$(CC) $(CFLAGS) $< -o $@
 
-check: solver mini $(VECTORS)
+check-upstream: solver mini $(VECTORS)
 	./solver --self-test
 	@expected=$$(mktemp); actual=$$(mktemp); \
 		trap 'rm -f "$$expected" "$$actual"' 0 1 2 15; \

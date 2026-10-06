@@ -1,0 +1,13 @@
+{
+  "input": "21345671111111",
+  "implementation": "assembly",
+  "processor": "RV32_ISS",
+  "length": 11,
+  "path": "R B' D2 R' B R' B' R D2 R B",
+  "instructions": 14958590,
+  "cycles": 14958590,
+  "text_bytes": 1564,
+  "static_data_bytes": 49217,
+  "target_replay": "PASS",
+  "host_optimality": "PASS"
+}
