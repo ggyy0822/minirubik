@@ -106,3 +106,5 @@ rank,11 invalid-input,1000 replay and17 framebuffer checks pass. New v5 full gat
 runs independently under fingerprint c0deaa63ee983de7. Historical v4 gate is not
 proof for v5. Pending: v5 all2644 result, online report/permissions, final tag and
 submission receipt. User reports AI permission; preserve provenance.
+
+Completed v5 gate: 2644/2644 PASS, zero failures; max40894417 at54721631111111. Rechecked every result and all available source hashes. Complete raw evidence compactly archived in results/rv32_full/completed-gate. Submission snapshot phase1-v5 prepared. Overall estimate95%; online HackMD owner login/update/owner-only write and accepted submission receipt remain pending. Latest course page now has forms.gle/2ZupDEdJyJkHM8Y6A. Current browser guest; share dialog confirms signed-in-user write, which needs owner correction.

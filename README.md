@@ -21,8 +21,8 @@ Load the renderer-off ELF for instruction measurements. Load the generated
 renderer-on GUI assembly with LED Matrix 0 configured to 35×25 for visualization.
 The current v5 target is fully assembly, including parsing, replay and output;
 AI-assisted provenance is explicit. The student reports instructor permission for AI assistance.
-Full distance-11 performance verification is in progress; no final tag or
-submission is claimed. The original `make` targets still build the upstream BFS.
+All 2644 distance-11 target cases pass; the validated snapshot is `phase1-v5`.
+Formal submission and its accepted receipt remain separate. The original `make` targets still build the upstream BFS.
 
 An optimal C99 solver for the 2×2×2 Rubik’s Cube. It builds a breadth-first
 table for all 3,674,160 states and solves every valid position in at most 11

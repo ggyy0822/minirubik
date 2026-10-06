@@ -1,6 +1,6 @@
 # Memory-bounded optimal 2×2×2 cube solving on RV32I
 
-**AI-assisted technical report — validation in progress.** The student reports
+**AI-assisted technical report — complete v5 distance-11 gate passed.** The student reports
 that the instructor has now permitted AI use. This report retains the actual
 provenance: guided student exercises and student-run observations are identified
 separately from AI-generated code, automation and writing. The updated permission
@@ -10,9 +10,9 @@ GitHub fork: https://github.com/ggyy0822/minirubik
 
 HackMD working note: https://hackmd.io/@tang930822/HksBNm-jGe
 
-Author name, final commit/tag, pinned HackMD revision and submission receipt: pending.
-The universal target performance gate is still pending. No test completion is
-implied by this document.
+Submission snapshot tag: `phase1-v5`. The complete v5 target gate passed all
+2,644 distance-11 states. HackMD revision URL and accepted submission receipt
+remain to be recorded; test completion is not a claim of formal submission.
 
 ## 1. Baseline, state space and cost
 
@@ -69,7 +69,7 @@ not a completed large-run measurement. macOS time's host instruction counter is
 not Ripes' guest retired-instruction count. Model execution time is also distinct
 from whole-process elapsed time and simulated cycle count.
 
-Raw student-run evidence: [stage 1](https://github.com/ggyy0822/minirubik/blob/main/measurements/stage1/README.md).
+Raw student-run evidence: [stage 1](https://github.com/ggyy0822/minirubik/blob/phase1-v5/measurements/stage1/README.md).
 
 ## 2. Search representation and heuristic
 
@@ -132,7 +132,7 @@ differs from the assignment's riscv64-unknown-elf-gcc example and is disclosed
 rather than silently treated as identical. Instruction audits reject extensions,
 undefined symbols and compiler arithmetic helpers.
 
-Source and reproducibility details: [C reference](https://github.com/ggyy0822/minirubik/blob/main/experiments/rv32_baseline/README.md).
+Source and reproducibility details: [C reference](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/rv32_baseline/README.md).
 This C implementation is AI-authored reference work, not evidence of an
 independently developed student C optimization history.
 
@@ -182,7 +182,7 @@ its own frame-index arithmetic and differing branches. These v4 results
 show improvement over v1 but do not beat GCC. That version remains frozen for
 its separate historical gate; v5 has its own target gate.
 
-Evidence: [versioned refinements](https://github.com/ggyy0822/minirubik/blob/main/experiments/assembly_practice/README.md).
+Evidence: [versioned refinements](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/assembly_practice/README.md).
 
 ### v5 full-assembly candidate
 
@@ -219,10 +219,10 @@ a claim that every individual overhead instruction has been traced. The diagnost
 harness counts are separate from final-program measurements. No universal GCC
 instruction win is claimed.
 
-Evidence: [v5 source/build](https://github.com/ggyy0822/minirubik/blob/main/experiments/rv32_full/README.md),
-[whole-program comparison](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_full/comparison.json),
-[phase attribution](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_full/phase-profile/summary.json),
-[ISA/static audit](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_full/audit.json).
+Evidence: [v5 source/build](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/rv32_full/README.md),
+[whole-program comparison](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/results/rv32_full/comparison.json),
+[phase attribution](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/results/rv32_full/phase-profile/summary.json),
+[ISA/static audit](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/results/rv32_full/audit.json).
 
 ## 5. Correctness and performance evidence
 
@@ -248,15 +248,18 @@ its precise model-accounting cause has not been independently established.
 Replay PASS proves that the emitted moves solve that input. It does not alone
 prove shortest length; that check uses the exact host oracle.
 
-The historical v4 gate and the current v5 gate are separate. Only completion of
-the current v5 gate can establish its universal 50-million
-instruction requirement. That gate remains pending. The highest measured sample must
-not be described as the established maximum over the full set.
+The historical v4 gate and current v5 gate are separate. The complete v5 gate
+passed all 2,644 exact-distance-11 states, with zero failures and a maximum of
+40,894,417 instructions at input 54721631111111. This establishes the required
+50-million bound over that complete set for the recorded build and model. The
+source hashes were rechecked against the completed run. Raw target and oracle
+logs are retained in the [complete gate archive](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/results/rv32_full/completed-gate/README.md),
+with a [per-case CSV](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/results/rv32_full/completed-gate/all-cases.csv).
 
 Pinned Ripes commit: 5b8a616edcb6f0a2ddb07e78951348b72497f1e1.
-Evidence: [cross-model results](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/cross-model-v4/summary.json),
-[host exhaustive result](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_baseline/native-all.txt),
-[full-gate procedure](https://github.com/ggyy0822/minirubik/blob/main/experiments/validation/README.md).
+Evidence: [cross-model results](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/results/cross-model-v4/summary.json),
+[host exhaustive result](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/results/rv32_baseline/native-all.txt),
+[full-gate procedure](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/validation/README.md).
 
 ### v5 target validation
 
@@ -274,10 +277,10 @@ component tests do not replace the whole-solver distance-11 gate.
 
 All eight runs pass target replay and host exact optimality. The stress case
 also passes on ISS with 40,894,417 instructions. The source-fingerprinted full
-2,644-case v5 run is in progress; the v4 coverage cannot substitute for it.
+2,644-case v5 run is complete; its independent evidence is retained above.
 
-Evidence: [component tests](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_full/state-check/summary.json),
-[cross-model measurements](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_full/measurements/summary.json).
+Evidence: [component tests](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/results/rv32_full/state-check/summary.json),
+[cross-model measurements](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/results/rv32_full/measurements/summary.json).
 
 ## 6. LED mapping and actual-path replay
 
@@ -304,9 +307,9 @@ identical section layouts. The CLI measures the ELF directly, without GUI
 bootstrap overhead. Updated rendering passed 17 frames of 875 pixels each.
 Renderer-off .text/static sizes remain 1,784/49,252 bytes; renderer-on payload
 sizes are 2,668/49,452 bytes, excluding the GUI bootstrap/padding from the payload
-text figure. See [unified build](https://github.com/ggyy0822/minirubik/blob/main/experiments/final/README.md),
-[equivalence](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/final/equivalence.json) and
-[pixel tests](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/final/led/summary.json).
+text figure. See [unified build](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/final/README.md),
+[equivalence](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/results/final/equivalence.json) and
+[pixel tests](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/results/final/led/summary.json).
 
 The current v5 build uses the same renderer with assembly-only integration. Its
 RENDER=1 path reparses the original state and applies the actual solution one move
@@ -314,7 +317,7 @@ at a time. The v5 renderer passes 17 complete frames of 875 pixels against the
 independent geometry oracle, including ISS and five-stage execution. New GUI
 source is generated by `experiments/rv32_full/build.py`; the earlier GUI screenshot
 is historical evidence, not a screenshot of v5. See
-[v5 pixel evidence](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/rv32_full/led/summary.json).
+[v5 pixel evidence](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/results/rv32_full/led/summary.json).
 
 ## 7. Pipeline observations (historical v4)
 
@@ -339,7 +342,7 @@ They may both be active in one cycle because an older load can be in WB while
 a younger store is in MEM. A red stall bubble was also observed while a branch
 waited behind loads. This is pipeline control behavior, not a source-level nop.
 
-Screenshots and detailed observations: [GUI evidence index](https://github.com/ggyy0822/minirubik/blob/main/experiments/results/pipeline/gui/README.md).
+Screenshots and detailed observations: [GUI evidence index](https://github.com/ggyy0822/minirubik/blob/phase1-v5/experiments/results/pipeline/gui/README.md).
 
 ## 8. Remaining work and disclosure
 
@@ -351,14 +354,15 @@ provenance should be retained; understanding generated code does not change its
 authorship.
 
 The student reports updated instructor permission for AI assistance. Before a
-final submission can be claimed, finish the universal target gate and retain
-its exact build provenance. The unified candidate is now implemented and tested;
+final submission can be claimed, synchronize the published note and obtain the
+accepted receipt. The universal target gate is complete with exact provenance;
 the nonwinning GCC comparison is disclosed and analyzed above. GitHub is pushed
 and the HackMD working note was observed publicly readable.
 Record genuine substantive revisions rather than fabricating earlier history.
-The final commit/tag, HackMD revision and form receipt are still absent.
+The validated repository snapshot is tagged `phase1-v5`. The HackMD revision
+and accepted form receipt remain external submission steps.
 
 Relative evidence links work in the repository; the HackMD-ready copy uses the
-student fork URLs. Final evidence should be pinned to the submitted commit.
+student fork URLs pinned to the `phase1-v5` snapshot.
 The initial draft has been published by the student; this updated report is not
-yet synchronized to that note. No final tag or form submission is claimed.
+yet synchronized to that note. No accepted form submission is claimed.

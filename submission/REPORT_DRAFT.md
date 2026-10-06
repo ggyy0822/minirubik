@@ -1,6 +1,6 @@
 # Memory-bounded optimal 2×2×2 cube solving on RV32I
 
-**AI-assisted technical report — validation in progress.** The student reports
+**AI-assisted technical report — complete v5 distance-11 gate passed.** The student reports
 that the instructor has now permitted AI use. This report retains the actual
 provenance: guided student exercises and student-run observations are identified
 separately from AI-generated code, automation and writing. The updated permission
@@ -10,9 +10,9 @@ GitHub fork: https://github.com/ggyy0822/minirubik
 
 HackMD working note: https://hackmd.io/@tang930822/HksBNm-jGe
 
-Author name, final commit/tag, pinned HackMD revision and submission receipt: pending.
-The universal target performance gate is still pending. No test completion is
-implied by this document.
+Submission snapshot tag: `phase1-v5`. The complete v5 target gate passed all
+2,644 distance-11 states. HackMD revision URL and accepted submission receipt
+remain to be recorded; test completion is not a claim of formal submission.
 
 ## 1. Baseline, state space and cost
 
@@ -248,10 +248,13 @@ its precise model-accounting cause has not been independently established.
 Replay PASS proves that the emitted moves solve that input. It does not alone
 prove shortest length; that check uses the exact host oracle.
 
-The historical v4 gate and the current v5 gate are separate. Only completion of
-the current v5 gate can establish its universal 50-million
-instruction requirement. That gate remains pending. The highest measured sample must
-not be described as the established maximum over the full set.
+The historical v4 gate and current v5 gate are separate. The complete v5 gate
+passed all 2,644 exact-distance-11 states, with zero failures and a maximum of
+40,894,417 instructions at input 54721631111111. This establishes the required
+50-million bound over that complete set for the recorded build and model. The
+source hashes were rechecked against the completed run. Raw target and oracle
+logs are retained in the [complete gate archive](../experiments/results/rv32_full/completed-gate/README.md),
+with a [per-case CSV](../experiments/results/rv32_full/completed-gate/all-cases.csv).
 
 Pinned Ripes commit: 5b8a616edcb6f0a2ddb07e78951348b72497f1e1.
 Evidence: [cross-model results](../experiments/results/cross-model-v4/summary.json),
@@ -274,7 +277,7 @@ component tests do not replace the whole-solver distance-11 gate.
 
 All eight runs pass target replay and host exact optimality. The stress case
 also passes on ISS with 40,894,417 instructions. The source-fingerprinted full
-2,644-case v5 run is in progress; the v4 coverage cannot substitute for it.
+2,644-case v5 run is complete; its independent evidence is retained above.
 
 Evidence: [component tests](../experiments/results/rv32_full/state-check/summary.json),
 [cross-model measurements](../experiments/results/rv32_full/measurements/summary.json).
@@ -351,14 +354,15 @@ provenance should be retained; understanding generated code does not change its
 authorship.
 
 The student reports updated instructor permission for AI assistance. Before a
-final submission can be claimed, finish the universal target gate and retain
-its exact build provenance. The unified candidate is now implemented and tested;
+final submission can be claimed, synchronize the published note and obtain the
+accepted receipt. The universal target gate is complete with exact provenance;
 the nonwinning GCC comparison is disclosed and analyzed above. GitHub is pushed
 and the HackMD working note was observed publicly readable.
 Record genuine substantive revisions rather than fabricating earlier history.
-The final commit/tag, HackMD revision and form receipt are still absent.
+The validated repository snapshot is tagged `phase1-v5`. The HackMD revision
+and accepted form receipt remain external submission steps.
 
 Relative evidence links work in the repository; the HackMD-ready copy uses the
-student fork URLs. Final evidence should be pinned to the submitted commit.
+student fork URLs pinned to the `phase1-v5` snapshot.
 The initial draft has been published by the student; this updated report is not
-yet synchronized to that note. No final tag or form submission is claimed.
+yet synchronized to that note. No accepted form submission is claimed.

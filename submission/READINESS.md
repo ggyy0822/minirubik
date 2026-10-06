@@ -15,11 +15,11 @@ student/AI contributions remain identified; no independent-authorship claim.
 | v5 LED pixel checks | 17 frames × 875 pixels PASS |
 | GUI pipeline screenshots | Historical v4 evidence, addresses/cycles not relabeled as v5 |
 | Host full-domain H1/H2/H3 | PASS for C/reference; not exhaustive assembly verification |
-| All 2,644 distance-11 target cases | v5 fingerprinted background run pending; v4 evidence remains separate |
+| All 2,644 distance-11 target cases | v5 complete: 2644 PASS, 0 FAIL, maximum 40894417; provenance matches |
 | English report | Local draft updated for v5, including non-winning case |
-| HackMD | Latest online synchronization and owner-only editing still unverified |
-| GitHub fork | Existing; final v5 publication status must be checked against Git |
-| Final tag / pinned note revision / submission form | Pending; no submission receipt |
+| HackMD | Guest session; note still has old content and signed-in-user editing; owner login needed |
+| GitHub fork | v5 code pushed; complete evidence included in phase1-v5 snapshot |
+| Final tag / pinned note revision / submission form | Tag phase1-v5; HackMD revision and accepted email still pending |
 
 Do not change the frozen v5 executable sources during its complete gate. Tests
 and source completion do not by themselves mean the coursework was submitted.

@@ -58,7 +58,9 @@ uses 3803 versus GCC's 3730; do not claim an instruction win for every input.
 The exact reference compiler is the installed `riscv64-elf-gcc` 16.2.0, using
 `-O2 -march=rv32i -mabi=ilp32` plus the documented freestanding/no-relax flags.
 
-The full 2644-case gate is separate from v4 and can take hours:
+The full 2644-case gate passed with zero failures; see
+[complete evidence](../results/rv32_full/completed-gate/README.md).
+It is separate from v4. To reproduce (can take hours):
 
 ```sh
 python3 experiments/rv32_full/run_hard.py --all
