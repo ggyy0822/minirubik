@@ -1,7 +1,0 @@
-transition face 0: full permutations; maxima p=5039 o=728; solved successors p=1104 o=426
-transition face 1: full permutations; maxima p=5039 o=728; solved successors p=9 o=16
-transition face 2: full permutations; maxima p=5039 o=728; solved successors p=198 o=0
-H2: exported transitions/PDBs complete, match host generation; PDB maxima 7/6, solved entries 0.
-H1: all 3674160 states passed.
-Search/parse/dual replay: 17 states passed; wall seconds 0.047
-Full-domain H3 search not run by this invocation.

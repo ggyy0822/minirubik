@@ -1,4 +1,0 @@
-riscv64-elf-gcc -O2 -std=c99 -march=rv32i -mabi=ilp32 -msmall-data-limit=0 -mno-relax -ffreestanding -fno-builtin -fno-stack-protector -Wall -Wextra -DCUBE_INPUT='"21345671111111"' -nostdlib -nostartfiles -Wl,--no-relax -Wl,-T,../toolchain/ripes.ld -Wl,-Map,../../output/assembly_search/21345671111111.map student_search.S heuristic.S init_frame.S ../rv32_baseline/state.c ../rv32_baseline/main.c ../rv32_baseline/start.S ../../output/rv32_baseline/tables.c -o ../../output/assembly_search/21345671111111.elf
-riscv64-elf-objdump -d -M no-aliases ../../output/assembly_search/21345671111111.elf > ../../output/assembly_search/21345671111111.disasm
-riscv64-elf-size -A ../../output/assembly_search/21345671111111.elf > ../../output/assembly_search/21345671111111.sections.txt
-riscv64-elf-readelf -h -A ../../output/assembly_search/21345671111111.elf > ../../output/assembly_search/21345671111111.attributes.txt

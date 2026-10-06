@@ -1,4 +1,0 @@
-exact_distance: 1
-path_length: 1
-solved: yes
-optimal: yes

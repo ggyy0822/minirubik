@@ -49,7 +49,7 @@ its own frame-index arithmetic and differing branches. These v4 results
 show improvement over v1 but do not beat GCC. That version remains frozen for
 its separate historical gate; v5 has its own target gate.
 
-Evidence: [versioned refinements](../experiments/assembly_practice/README.md).
+Evidence: [versioned refinements](https://github.com/ggyy0822/minirubik/blob/phase1-structured-v1/experiments/assembly_practice/README.md).
 
 ### v5 full-assembly candidate
 
@@ -86,8 +86,8 @@ a claim that every individual overhead instruction has been traced. The diagnost
 harness counts are separate from final-program measurements. No universal GCC
 instruction win is claimed.
 
-Evidence: [v5 source/build](../experiments/rv32_full/README.md),
-[whole-program comparison](../experiments/results/rv32_full/comparison.json),
-[phase attribution](../experiments/results/rv32_full/phase-profile/summary.json),
-[ISA/static audit](../experiments/results/rv32_full/audit.json).
+Evidence: [v5 source/build](https://github.com/ggyy0822/minirubik/blob/phase1-structured-v1/experiments/rv32_full/README.md),
+[whole-program comparison](https://github.com/ggyy0822/minirubik/blob/phase1-structured-v1/experiments/results/rv32_full/comparison.json),
+[phase attribution](https://github.com/ggyy0822/minirubik/blob/phase1-structured-v1/experiments/results/rv32_full/phase-profile/summary.json),
+[ISA/static audit](https://github.com/ggyy0822/minirubik/blob/phase1-structured-v1/experiments/results/rv32_full/audit.json).
 

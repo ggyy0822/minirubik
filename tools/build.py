@@ -7,7 +7,7 @@ FLAGS=['-O2','-std=c99','-march=rv32i','-mabi=ilp32','-msmall-data-limit=0','-mn
 def execute(args,**kw):return subprocess.run(list(map(str,args)),check=True,**kw)
 def tables():
  OUT.mkdir(parents=True,exist_ok=True)
- inputs=[ROOT/'tools/generate_tables.c',ROOT/'experiments/ida_reference.c',ROOT/'solver.c']
+ inputs=[ROOT/'tools/generate_tables.c',ROOT/'tools/host_model.c',ROOT/'solver.c']
  target=OUT/'tables.c'
  if not target.exists() or any(p.stat().st_mtime>target.stat().st_mtime for p in inputs):
   execute([os.environ.get('CC','cc'),'-O2','-std=c99','-Wno-unused-function',inputs[0],'-o',OUT/'generate_tables'])

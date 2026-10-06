@@ -1,6 +1,6 @@
 /* AI-authored host verifier for the exact C sources compiled for the target. */
 #define IDA_REFERENCE_LIBRARY
-#include "../experiments/ida_reference.c"
+#include "../tools/host_model.c"
 #include "../baseline/target.h"
 
 static int check_tables(void)

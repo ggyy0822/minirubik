@@ -8,3 +8,6 @@ mini
 __pycache__/
 *.pyc
 /output/
+
+# Local historical long-run logs have archived copies in results/raw/.
+/experiments/

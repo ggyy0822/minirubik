@@ -1,6 +1,6 @@
 /* Host-only precomputation. No search is performed by the generator. */
 #define IDA_REFERENCE_LIBRARY
-#include "../experiments/ida_reference.c"
+#include "../tools/host_model.c"
 
 static void emit_u16(const char *name, unsigned count, uint16_t values[3][count])
 {

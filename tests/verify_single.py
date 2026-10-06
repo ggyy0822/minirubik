@@ -1,7 +1,6 @@
 """Execute the committed single-file Ripes program using a RAM LED substitute."""
 import json,re,os,sys,subprocess
 from common import ROOT,OUT,RIPES
-sys.path.insert(0,str(ROOT/'experiments/led'))
 import geometry
 source=(ROOT/'asm/minirubik.s').read_text()
 state=re.search(r'^# Input: (\d{14})',source,re.M)[1]

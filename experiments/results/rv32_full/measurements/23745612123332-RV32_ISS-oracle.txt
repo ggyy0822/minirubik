@@ -1,4 +1,0 @@
-exact_distance: 3
-path_length: 3
-solved: yes
-optimal: yes

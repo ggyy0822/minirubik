@@ -42,9 +42,11 @@ minirubik/
 └── tools/                   # Build, host table generator, linker script
 ```
 
-`experiments/` and `submission/` retain historical versions/evidence and the
-HackMD-ready export. They are not the primary entry points. The original
-`solver.c` and `mini.c` remain the upstream BFS baseline and independent oracle.
+Historical experiments and evidence are preserved in
+`results/raw/development-history.tar.gz` and immutable earlier Git tags.
+The original `solver.c` and `mini.c` remain the upstream BFS baseline/oracle.
+`docs/report.md` is the single report source and can be pasted directly into
+HackMD; duplicate submission drafts have been removed.
 
 ## Build
 
@@ -100,5 +102,5 @@ Do not claim an instruction win for every input.
 
 The structured source copies and eight representative ELF layouts/sections are
 identical to validated v5. Historical `phase1-v5` is retained; the organized
-snapshot is `phase1-structured-v1`. Formal course submission and its `accepted`
+snapshot is `phase1-submit-v1`. Formal course submission and its `accepted`
 email are separate from building, testing or tagging the repository.
