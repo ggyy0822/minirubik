@@ -8,7 +8,7 @@ is reported by the student, not independently documented here.
 
 GitHub fork: https://github.com/ggyy0822/minirubik
 
-HackMD working note: https://hackmd.io/@tang930822/HksBNm-jGe
+HackMD working note: https://hackmd.io/@tang930822/arch2026-homework1
 
 Submission snapshot tag: `phase1-structured-v1`; historical validated snapshot: `phase1-v5`. The complete v5 target gate passed all
 2,644 distance-11 states. HackMD revision URL and accepted submission receipt
